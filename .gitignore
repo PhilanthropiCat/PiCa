@@ -1,0 +1,6 @@
+.vscode
+pica/__pycache__
+build
+dist
+picalib.egg-info
+examples

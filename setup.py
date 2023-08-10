@@ -1,7 +1,12 @@
 from setuptools import setup, find_packages
+from pathlib import Path
 
-VERSION = "0.1"
+this_directory = Path(__file__).parent
+long_description = (this_directory / "README.md").read_text()
+
+VERSION = "0.1.2"
 DESCRIPTION = "PiCa is lightweight and minimalist package for autodiff."
+
 
 
 # Setting up
@@ -10,6 +15,8 @@ setup(
     version=VERSION,
     author="Phikat",
     description=DESCRIPTION,
+    long_description=long_description,
+    long_description_content_type='text/markdown',
     packages=find_packages(include=['pica']),
     install_requires=["networkx","matplotlib"],
 )

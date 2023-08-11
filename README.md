@@ -22,4 +22,9 @@ The PiCa library is still under development, so you may not find some nodes you 
 pip install picalib
 ```
 #### Documentation:
-Under development!
+
+[Docs](https://pica.readthedocs.io/en/latest/)
+
+#### Code: 
+
+[Github](https://github.com/PhilanthropiCat/PiCa)

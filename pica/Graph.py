@@ -2,7 +2,7 @@ import networkx as nx
 import matplotlib.pyplot as plt
 from .SumNode import SumNode
 from .MultNode import MultNode
-from .SubsNode import SubsNode
+from .SubNode import SubNode
 from .DivNode import DivNode
 from .ValueNode import ValueNode
 
@@ -53,7 +53,7 @@ class Graph:
                             pass
                         children.gradient = node.gradient * 1
 
-                    if isinstance(node, SubsNode):
+                    if isinstance(node, SubNode):
                         if children == node.children[0]:
                             if isinstance(children, ValueNode):
                                 pass
@@ -70,23 +70,21 @@ class Graph:
                             if isinstance(children, ValueNode):
                                 pass
                             else:
-                                children.gradient = node.gradient * node.value2
+                                children.gradient = node.gradient * node.gradient1
                         if children == node.children[1]:
                             if isinstance(children, ValueNode):
                                 pass
                             else:
-                                children.gradient = node.gradient * node.value
+                                children.gradient = node.gradient * node.gradient2
 
                     if isinstance(node, DivNode):
                         if children == node.children[0]:
                             if isinstance(children, ValueNode):
                                 pass
                             else:
-                                children.gradient = node.gradient * (1 / node.value2)
+                                children.gradient = node.gradient * node.gradient1
                         if children == node.children[1]:
                             if isinstance(children, ValueNode):
                                 pass
                             else:
-                                children.gradient = node.gradient * (
-                                    -(node.value / (node.value2) ** 2)
-                                )
+                                children.gradient = node.gradient * node.gradient2

@@ -4,7 +4,7 @@ from pathlib import Path
 this_directory = Path(__file__).parent
 long_description = (this_directory / "README.md").read_text()
 
-VERSION = "0.1.3"
+VERSION = "0.1.6"
 DESCRIPTION = "PiCa is lightweight and minimalist package for autodiff."
 
 

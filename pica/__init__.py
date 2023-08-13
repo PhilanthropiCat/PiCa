@@ -5,3 +5,9 @@ from .SumNode import SumNode
 from .SubNode import SubNode
 from .VariableNode import VariableNode
 from .ValueNode import ValueNode
+from .SinNode import SinNode
+from .CosNode import CosNode
+from .TanNode import TanNode
+from .CscNode import CscNode
+from .SecNode import SecNode
+from .CotNode import CotNode

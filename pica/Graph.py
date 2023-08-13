@@ -1,10 +1,17 @@
 import networkx as nx
 import matplotlib.pyplot as plt
+import math
 from .SumNode import SumNode
 from .MultNode import MultNode
 from .SubNode import SubNode
 from .DivNode import DivNode
 from .ValueNode import ValueNode
+from .SinNode import SinNode
+from .CosNode import CosNode
+from .TanNode import TanNode
+from .CscNode import CscNode
+from .SecNode import SecNode
+from .CotNode import CotNode
 
 
 class Graph:
@@ -45,46 +52,59 @@ class Graph:
     def backward(self):
         nodes = list(self.graph.nodes)
         nodes[-1].gradient = 1
+
         for node in reversed(nodes):
-            if len(node.children) > 0:
-                for children in node.children:
-                    if isinstance(node, SumNode):
-                        if isinstance(children, ValueNode):
-                            pass
-                        children.gradient = node.gradient * 1
+            if len(node.parents) > 0:
+                for parent in node.parents:
+                    if isinstance(parent, SumNode):
+                        node.gradient += parent.gradient * 1
 
-                    if isinstance(node, SubNode):
-                        if children == node.children[0]:
-                            if isinstance(children, ValueNode):
-                                pass
-                            else:
-                                children.gradient = node.gradient * 1
-                        if children == node.children[1]:
-                            if isinstance(children, ValueNode):
-                                pass
-                            else:
-                                children.gradient = node.gradient * -1
+                    if isinstance(parent, SubNode):
+                        if node == parent.children[0]:
+                            node.gradient += parent.gradient * 1
+                        if node == parent.children[1]:
+                            node.gradient += parent.gradient * -1
 
-                    if isinstance(node, MultNode):
-                        if children == node.children[0]:
-                            if isinstance(children, ValueNode):
-                                pass
-                            else:
-                                children.gradient = node.gradient * node.gradient1
-                        if children == node.children[1]:
-                            if isinstance(children, ValueNode):
-                                pass
-                            else:
-                                children.gradient = node.gradient * node.gradient2
+                    if isinstance(parent, MultNode):
+                        if node == parent.children[0]:
+                            node.gradient += parent.gradient * parent.gradient1
+                        if node == parent.children[1]:
+                            node.gradient += parent.gradient * parent.gradient2
 
-                    if isinstance(node, DivNode):
-                        if children == node.children[0]:
-                            if isinstance(children, ValueNode):
-                                pass
-                            else:
-                                children.gradient = node.gradient * node.gradient1
-                        if children == node.children[1]:
-                            if isinstance(children, ValueNode):
-                                pass
-                            else:
-                                children.gradient = node.gradient * node.gradient2
+                    if isinstance(parent, DivNode):
+                        if node == parent.children[0]:
+                            node.gradient += parent.gradient * parent.gradient1
+                        if node == parent.children[1]:
+                            node.gradient += parent.gradient * parent.gradient2
+
+                    if isinstance(parent, SinNode):
+                        node.gradient += parent.gradient * math.cos(
+                            math.radians(parent.value)
+                        )
+
+                    if isinstance(parent, CosNode):
+                        node.gradient += parent.gradient * -(
+                            math.sin(math.radians(parent.value))
+                        )
+
+                    if isinstance(parent, TanNode):
+                        node.gradient += parent.gradient * (
+                            1 / (math.cos(math.radians(parent.value)) ** 2)
+                        )
+
+                    if isinstance(parent, CscNode):
+                        node.gradient += parent.gradient * (
+                            -(1 / math.tan(math.radians(parent.value)))
+                            * (1 / math.sin(math.radians(parent.value)))
+                        )
+
+                    if isinstance(parent, SecNode):
+                        node.gradient += parent.gradient * (
+                            (1 / math.cos(math.radians(parent.value)))
+                            * math.tan(math.radians(parent.value))
+                        )
+
+                    if isinstance(parent, CotNode):
+                        node.gradient += parent.gradient * (
+                            -(1 / (math.sin(math.radians(parent.value)) ** 2))
+                        )

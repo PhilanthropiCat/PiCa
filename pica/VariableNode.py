@@ -3,4 +3,4 @@ class VariableNode:
         self.result = value
         self.gradient = 0
         self.children = []
-
+        self.parents = []

@@ -7,5 +7,8 @@ class MultNode:
         self.gradient1 = self.value2
         self.gradient2 = self.value
         self.children = [node1,node2]
+        self.parents = []
+        node1.parents.append(self)
+        node2.parents.append(self)
 
    

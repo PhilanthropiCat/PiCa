@@ -12,6 +12,8 @@ from .TanNode import TanNode
 from .CscNode import CscNode
 from .SecNode import SecNode
 from .CotNode import CotNode
+from .LnNode import LnNode
+from .LogNode import LogNode
 
 
 class Graph:
@@ -107,4 +109,12 @@ class Graph:
                     if isinstance(parent, CotNode):
                         node.gradient += parent.gradient * (
                             -(1 / (math.sin(math.radians(parent.value)) ** 2))
+                        )
+
+                    if isinstance(parent, LnNode):
+                        node.gradient += parent.gradient * (1 / parent.value)
+
+                    if isinstance(parent, LogNode):
+                        node.gradient += parent.gradient * (
+                            1 / (parent.value * math.log(10))
                         )

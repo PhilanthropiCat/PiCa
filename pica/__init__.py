@@ -11,3 +11,5 @@ from .TanNode import TanNode
 from .CscNode import CscNode
 from .SecNode import SecNode
 from .CotNode import CotNode
+from .LnNode import LnNode
+from .LogNode import LogNode

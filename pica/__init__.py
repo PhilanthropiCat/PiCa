@@ -13,3 +13,5 @@ from .SecNode import SecNode
 from .CotNode import CotNode
 from .LnNode import LnNode
 from .LogNode import LogNode
+from .PowerNode import PowerNode
+from .ExpNode import ExpNode

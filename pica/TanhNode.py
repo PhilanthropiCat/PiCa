@@ -2,11 +2,11 @@ import math
 from .Node import Node
 
 
-class LnNode(Node):
+class TanhNode(Node):
     def __init__(self, node):
-        super(LnNode, self).__init__()
+        super(Node, self).__init__()
         self.value = node.result
-        self.result = math.log(self.value)
+        self.result = math.tanh((self.value))
         self.gradient = 0
         self.children = [node]
         self.parents = []

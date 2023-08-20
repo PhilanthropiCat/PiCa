@@ -15,7 +15,9 @@ from .CotNode import CotNode
 from .LnNode import LnNode
 from .LogNode import LogNode
 from .PowerNode import PowerNode
-from .ExpNode import ExpNode
+from .SinhNode import SinhNode
+from .CoshNode import CoshNode
+from .TanhNode import TanhNode
 
 
 class Graph:
@@ -122,15 +124,22 @@ class Graph:
                         )
 
                     if isinstance(parent, PowerNode):
-                        node.gradient += parent.gradient * (
-                            parent.exp * (parent.value ** (parent.exp - 1))
-                        )
+                        if node == parent.children[0]:
+                            node.gradient += parent.gradient * (
+                                parent.exp * (parent.value) ** (parent.exp - 1)
+                            )
+                        if node == parent.children[1]:
+                            node.gradient += parent.gradient * (
+                                (parent.value**parent.exp) * math.log(parent.value)
+                            )
 
-                    if isinstance(parent, ExpNode):
-                        node.gradient += parent.gradient * (
-                            (parent.coefficient**parent.value)
-                            * math.log(parent.coefficient)
-                        )
+                    if isinstance(parent, SinhNode):
+                        node.gradient += parent.gradient * (math.cosh(parent.value))
 
-                    if isinstance(parent, ValueNode):
-                        pass
+                    if isinstance(parent, CoshNode):
+                        node.gradient += parent.gradient * (math.sinh(parent.value))
+
+                    if isinstance(parent, TanhNode):
+                        node.gradient += parent.gradient * (
+                            1 / ((math.cosh(parent.value)) ** 2)
+                        )
